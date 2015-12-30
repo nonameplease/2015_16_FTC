@@ -69,6 +69,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("Color_sensor_test", color_sensor_test.class);
     manager.register("Optical_distance_sensor_test", optical_distance_sensor_test.class);
     manager.register("sensorauto_v1", sensorauto_v1.class);
+    manager.register("dual_ods_test", dual_ods_test.class);
 
 
 

@@ -11,7 +11,8 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 public class dual_ods_test extends OpMode {
 
     DeviceInterfaceModule dim;
-    OpticalDistanceSensor ods;
+    OpticalDistanceSensor ods_l;
+    OpticalDistanceSensor ods_r;
 
     DcMotor leftMotor;
     DcMotor rightMotor;
@@ -21,7 +22,8 @@ public class dual_ods_test extends OpMode {
     @Override
     public void init() {
         dim = hardwareMap.deviceInterfaceModule.get("device");
-        ods = hardwareMap.opticalDistanceSensor.get("ods");
+        ods_l = hardwareMap.opticalDistanceSensor.get("odsl");
+        ods_r = hardwareMap.opticalDistanceSensor.get("odsr");
 
         leftMotor = hardwareMap.dcMotor.get("left_drive");
         rightMotor = hardwareMap.dcMotor.get("right_drive");
@@ -35,11 +37,12 @@ public class dual_ods_test extends OpMode {
 
     @Override
     public void loop() {
-        double distance = ods.getLightDetected();
+        double distance_l = ods_l.getLightDetected();
+        double distance_r = ods_r.getLightDetected();
 
 
 
-        if (distance < 0.01)
+        if (distance_l < 0.01)
         {
             leftMotor.setPower(0.5);
             rightMotor.setPower(0.5);
@@ -56,7 +59,8 @@ public class dual_ods_test extends OpMode {
 
 
 
-        telemetry.addData("Distance Detected", distance);
+        telemetry.addData("Distance Detected Left", distance_l);
+        telemetry.addData("Distance Detected Right", distance_r);
 
     }
 }
