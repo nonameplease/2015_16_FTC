@@ -45,16 +45,27 @@ public class dual_ods_test extends OpMode {
         if (distance_l < 0.01)
         {
             leftMotor.setPower(0.5);
-            rightMotor.setPower(0.5);
+            //rightMotor.setPower(0.5);
             leftMotorRear.setPower(0.5);
-            rightMotorRear.setPower(0.5);
+           // rightMotorRear.setPower(0.5);
         }
         else
         {
             leftMotor.setPowerFloat();
-            rightMotor.setPowerFloat();
+           // rightMotor.setPowerFloat();
             leftMotorRear.setPowerFloat();
+           // rightMotorRear.setPowerFloat();
+        }
+
+        if (distance_r < 0.01)
+        {
+            rightMotor.setPower(0.5);
+            rightMotorRear.setPower(0.5);
+        }
+        else
+        {
             rightMotorRear.setPowerFloat();
+            rightMotor.setPowerFloat();
         }
 
 
