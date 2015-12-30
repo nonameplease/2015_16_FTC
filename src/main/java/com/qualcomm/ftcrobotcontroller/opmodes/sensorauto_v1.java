@@ -15,7 +15,8 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 public class sensorauto_v1 extends LinearOpMode {
 
     DeviceInterfaceModule dim;
-    OpticalDistanceSensor ods;
+    OpticalDistanceSensor ods_l;
+    OpticalDistanceSensor ods_r;
     ColorSensor color;
 
     DcMotor leftMotor;
@@ -27,7 +28,8 @@ public class sensorauto_v1 extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         dim = hardwareMap.deviceInterfaceModule.get("device");
-        ods = hardwareMap.opticalDistanceSensor.get("ods");
+        ods_l = hardwareMap.opticalDistanceSensor.get("odsl");
+        ods_r = hardwareMap.opticalDistanceSensor.get("odsr");
         color = hardwareMap.colorSensor.get("color");
 
         leftMotor = hardwareMap.dcMotor.get("left_drive");
@@ -47,7 +49,8 @@ public class sensorauto_v1 extends LinearOpMode {
         int Blue = color.blue();
         int Green = color.green();
 
-        double distance = ods.getLightDetected();
+        double distance_l = ods_l.getLightDetected();
+        double distance_r = ods_r.getLightDetected();
 
         if(Red < 375 && Blue < 350 && Green < 350)
         {
@@ -74,23 +77,35 @@ public class sensorauto_v1 extends LinearOpMode {
             rightMotorRear.setPowerFloat();
             rightMotor.setPowerFloat();
 
-            if (distance < 0.01)
+            if (distance_l < 0.01)
             {
                 leftMotor.setPower(0.5);
-                rightMotor.setPower(0.5);
+                //rightMotor.setPower(0.5);
                 leftMotorRear.setPower(0.5);
-                rightMotorRear.setPower(0.5);
+                // rightMotorRear.setPower(0.5);
             }
             else
             {
                 leftMotor.setPowerFloat();
-                rightMotor.setPowerFloat();
+                // rightMotor.setPowerFloat();
                 leftMotorRear.setPowerFloat();
+                // rightMotorRear.setPowerFloat();
+            }
+
+            if (distance_r < 0.01)
+            {
+                rightMotor.setPower(0.5);
+                rightMotorRear.setPower(0.5);
+            }
+            else
+            {
                 rightMotorRear.setPowerFloat();
+                rightMotor.setPowerFloat();
             }
         }
 
-        telemetry.addData("Distance Detected", distance);
+        telemetry.addData("Distance Detected Left", distance_l);
+        telemetry.addData("Distance Detected Right", distance_r);
         telemetry.addData("Red", Red);
         telemetry.addData("Blue", Blue);
         telemetry.addData("Green", Green);
